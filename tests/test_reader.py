@@ -138,8 +138,8 @@ class ReaderTests(unittest.TestCase):
         """Make sure a False return value from header callback causes short circuit"""
         # arrange
         callbacks = olieigra.Callbacks()
-        callbacks.parsed_header = MagicMock(side_effect=[True, False])
-        callbacks.parsed_body = MagicMock()
+        callbacks.parse_header = MagicMock(side_effect=[True, False])
+        callbacks.parse_body = MagicMock()
         reader = olieigra.Reader(callbacks=callbacks)
         reader.readline = MagicMock(side_effect=self.sample_file_headers())
         reader.skip_body = MagicMock()
@@ -149,8 +149,8 @@ class ReaderTests(unittest.TestCase):
         _, _ = reader.read_from_stream(reader)
 
         # assert
-        self.assertEqual(2, reader.callbacks.parsed_header.call_count)
-        reader.callbacks.parsed_body.assert_called_once_with('dillon')
+        self.assertEqual(2, reader.callbacks.parse_header.call_count)
+        reader.callbacks.parse_body.assert_called_once_with('dillon')
         reader.skip_body.assert_called_once_with(reader, 3)
         reader.parse_body.assert_called_once_with(reader, 2)
 

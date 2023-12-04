@@ -41,9 +41,9 @@ class Reader:
                 break
 
             header = self.parse_header(line)
-            if self.callbacks.parsed_header(header):
+            if self.callbacks.parse_header(header):
                 body = self.parse_body(reader, header.numlev)
-                self.callbacks.parsed_body(body)
+                self.callbacks.parse_body(body)
             else:
                 self.skip_body(reader, header.numlev)
 
