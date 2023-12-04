@@ -39,7 +39,9 @@ class Crawler:
     def process_igra2_archive_file(self, archive: ZipFile, filename: str):
         """Read an igra2 file from a zip file"""
         reader = self.io.open_archive_file(archive, filename)
-        headers, rows = self.reader.read_from_stream(reader)
+        wrapper = self.io.read_as_text(reader)
+        headers, rows = self.reader.read_from_stream(wrapper)
+        wrapper.close()
         reader.close()
 
         self.callbacks.finish_file(headers, rows)

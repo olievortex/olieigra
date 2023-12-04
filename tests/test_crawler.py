@@ -179,6 +179,7 @@ class CrawlerTests(unittest.TestCase):
         reader.read_from_stream = MagicMock(return_value=(10, 20))
         io = IOWrapper()
         io.open_archive_file = MagicMock(return_value=io)
+        io.read_as_text = MagicMock(return_value=io)
         io.close = MagicMock()
         crawler = olieigra.Crawler(reader=reader, io=io)
 
@@ -188,5 +189,5 @@ class CrawlerTests(unittest.TestCase):
         # assert
         reader.read_from_stream.assert_called_once()
         io.open_archive_file.assert_called_once()
-        io.close.assert_called_once()
+        self.assertEqual(2, io.close.call_count)
         callbacks.finish_file.assert_called_once_with(10, 20)

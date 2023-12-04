@@ -21,6 +21,10 @@ class IOWrapper:
         """Return a binary stream of a file from an archive"""
         return archive.open(filename, "r")
 
+    def read_as_text(self, stream: IO[bytes]) -> io.TextIOWrapper:
+        """Convert a binary stream into a text stream"""
+        return io.TextIOWrapper(stream, encoding='UTF-8')
+
     def open_file(self, filename: str) -> io.TextIOWrapper:
         """Return a text reader for the given file"""
         return open(filename, 'r', encoding='UTF-8')

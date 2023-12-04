@@ -35,7 +35,7 @@ class Reader:
         line_count = 0
 
         while True:
-            line = str(reader.readline(), encoding='UTF-8')
+            line = reader.readline()
 
             if line == "":
                 break
@@ -62,7 +62,7 @@ class Reader:
         result = []
 
         for _ in range(records):
-            line = str(reader.readline(), encoding='UTF-8')
+            line = reader.readline()
             result.append(self.parse_body_line(line))
 
         return result
