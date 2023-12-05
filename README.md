@@ -7,6 +7,8 @@ As a data scientist/data engineer, I want to read IGRA2 files as a stream with t
 ## Solution
 Parse an IGRA2 file utilizing a series of callbacks. These callbacks are configured by the calling application. This provides for a separation of concerns. The calling application has complete control over the transformation and storage of the data.
 
+IGRA2 files are typically downloaded as a zipped archives. The solution has the ability to scan for zip files in a folder. It will process IGRA2 files contained within zip files without expanding it locally.
+
 ## Project Structure
 - /src/olieigra - Implementation code
 - /dist - Packaged olieigra wheel file to be installed with pip
