@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 from dataclasses import dataclass
 import numpy as np
-from src import olieigra
+import olieigra
 
 SRC_PATH = 'C:/Users/oliev/Downloads'
 DST_PATH = 'C:/Users/oliev/Downloads/silver'
