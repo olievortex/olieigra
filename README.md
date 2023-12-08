@@ -16,15 +16,28 @@ IGRA2 files are typically downloaded as a zipped archives. The solution has the 
 - LICENSE - MIT License
 - pyproject.toml - Configuration file for packaging
 - README.md - This file
+- sample_gph20s10k.py - A sample implementation using olieigra. It interpolates data over 20 levels.
+- sample_qa.py - A very simple implementation using olieigra. It writes a very simple aggregate of data. 
 
 ## Installation
 Dependencies:
 - numpy
 - pytest
 
-Download the most recent *.whl file from the /dist folder. Install using pip. Replace 'version' in the command below with the actual version of your download.
+### Option 1
+[Download](https://github.com/olievortex/olieigra/releases) the .whl file from the latest release and install it using pip. (Replace the text 'version' below with the actual file version.)
 
     pip install /path/to/whl/olieigra-version-py3-none-any.whl
+
+### Option 2 
+Clone the repository and build your own package.
+
+    cd /path/to/cloned/repository
+    conda activate your_environment
+    conda install build
+    python -m build
+
+A .whl file will be created in the /dist/ folder. Take this file and install as you would using Option 1 above.
 
 ## Usage and Documentation
 [Please refer to the repository Wiki](https://github.com/olievortex/olieigra/wiki)
