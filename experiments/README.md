@@ -12,6 +12,7 @@ My goals
 - /liftedindex_lr - Folder containing a linear regression to predict the LI severe weather parameter
 - /download_data.ipynb - Notebook that downloads IGRA2 observations by station id
 - /download_docs.ipynb - Notebook that downloads basic documentation and the station list
+- /transform_data_gph20s10k.ipynb - Notebook to transform IGRA2 observation into 21 height levels
 - /transform_station_list.ipynb - Notebook that converts the raw station list to a csv file
 
 ## Getting data
@@ -20,6 +21,7 @@ There is an automated process of fetching IGRA2 data using the notebooks in this
 1. download_docs
 2. transform_station_list
 3. download_data
+4. transform_data_gph20s10k
 
 The first cell in each notebook contains variables that can be modified to suit your needs.
 

@@ -10,6 +10,7 @@ Parse an IGRA2 file utilizing a series of callbacks. These callbacks are configu
 IGRA2 files are typically downloaded as a zipped archives. The solution has the ability to scan for zip files in a folder. It will process IGRA2 files contained within zip files without expanding it locally.
 
 ## Project Structure
+- /experiments - Practical machine learning implementations
 - /src/olieigra - Implementation code
 - /dist - Packaged olieigra wheel file to be installed with pip
 - /tests - Unit testing code (unittest)
