@@ -13,6 +13,7 @@ My goals
 - /download_data.ipynb - Notebook that downloads IGRA2 observations by station id
 - /download_docs.ipynb - Notebook that downloads basic documentation and the station list
 - /transform_data_gph20s10k.ipynb - Notebook to transform IGRA2 observation into 21 height levels
+- /transform_data_qa.ipynb - Notebook to aggregate certain IGRA2 observation for analysis
 - /transform_station_list.ipynb - Notebook that converts the raw station list to a csv file
 
 ## Getting data
@@ -21,7 +22,9 @@ There is an automated process of fetching IGRA2 data using the notebooks in this
 1. download_docs
 2. transform_station_list
 3. download_data
-4. transform_data_gph20s10k
+4. transform_data_qa (optional: prerequisite for step 5)
+5. explore_data_qa (optional: Perform analysis on the data)
+6. transform_data_gph20s10k
 
 The first cell in each notebook contains variables that can be modified to suit your needs.
 
