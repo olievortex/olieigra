@@ -45,3 +45,4 @@ MetPy is used to calculate the Lifted Index.
 Execute the notebooks in the following order.
 
 calculate_li.ipynb - Calculate the Lifted Index
+calculate_features_labels.ipynb - Create the features and labels file
