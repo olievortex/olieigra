@@ -40,3 +40,9 @@ MetPy is used to calculate the Lifted Index.
     %conda install -c conda-forge metpy
 
 [MetPy documentation](https://unidata.github.io/MetPy/latest/api/generated/metpy.calc.lifted_index.html)
+
+### Notebooks
+Execute the notebooks in the following order.
+
+calculate_li.ipynb - Calculate the Lifted Index
+calculate_features_labels.ipynb - Create the features and labels file
