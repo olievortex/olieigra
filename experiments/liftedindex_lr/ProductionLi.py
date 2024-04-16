@@ -13,53 +13,40 @@ import pandas as pd
 import pickle
 import torch
 
-from sklearn.feature_selection import SelectKBest
 from sklearn.preprocessing import StandardScaler
+
+GOLD_PARQUET_PATH = '/Users/olievortex/lakehouse/default/Files/gold/igra2/liftedindex_lr'
+ARTIFACTS_PATH = '/Users/olievortex/lakehouse/default/Files/gold/igra2/artifacts'
+D = 127
+K = 1
 
 print(f"Imports        : {(datetime.now()-start).total_seconds()*1000.:.2f}ms")
 start = datetime.now()
 
-D = 50
-K = 1
-
 def load_dataset():
-    df = pd.read_csv('c:/workspace/dillon.csv')
-    df['li'] = pd.read_csv('c:/workspace/li.csv')
-
-    # Remove data with NaN values
-    df = df.dropna()
+    df = pd.read_parquet(GOLD_PARQUET_PATH)
 
     # Separate the datasets
-    X = df.drop(['date', 'hour', 'li'], axis=1)
+    X = df.drop(['id', 'effective_date', 'hour', 'li'], axis=1)
     Y = df['li'].values
     
     # Scale the X dataset
     ss = load_standard_scaler() 
     X = ss.transform(X)
-
-    # Select the best n features
-    skb = load_k_best()
-    X = skb.transform(X)
    
     return X, Y
 
 def load_standard_scaler()-> StandardScaler:
-    with open('c:/workspace/li_std_scaler.skl', 'rb') as f:
+    with open(f'{ARTIFACTS_PATH}/li_std_scaler.skl', 'rb') as f:
         std_scaler = pickle.load(f)
 
     return std_scaler
-
-def load_k_best()-> SelectKBest:
-    with open('c:/workspace/li_k_best.skl', 'rb') as f:
-        k_best = pickle.load(f)
-
-    return k_best
 
 model = torch.nn.Sequential()
 model.add_module("dense1", torch.nn.Linear(D, 7))
 model.add_module("tanh1", torch.nn.Tanh())
 model.add_module("dense2", torch.nn.Linear(7, K))
-model.load_state_dict(torch.load('c:/workspace/li_fnn.pt'))
+model.load_state_dict(torch.load(f'{ARTIFACTS_PATH}/li_fnn.pt'))
 model.eval()
 
 X, Y = load_dataset()
