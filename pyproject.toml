@@ -19,10 +19,13 @@ classifiers = [
 dependencies = [
     "jupyter>=1.1.1",
     "matplotlib>=3.7.5",
+    "metpy>=1.7.1",
     "notebook>=7.3.3",
     "numpy>=1.24.4",
     "pandas>=2.0.3",
     "pandasql>=0.7.3",
+    "pyarrow>=22.0.0",
+    "scikit-learn>=1.7.2",
     "torch>=2.7.0",
     "torchvision>=0.22.0",
 ]
