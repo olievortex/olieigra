@@ -5,7 +5,7 @@ print("Olie\\/ortex Analytics: ProductionLi.py")
 print()
 print(f"Create Lifted Index predictions from Deep Learning Model")
 print()
-print(f"Effective date: 2010 - 2023 Chanhassen")
+print(f"Effective date: 2010 - 2025 Chanhassen")
 
 start = datetime.now()
 import matplotlib.pyplot as plt
@@ -13,18 +13,16 @@ import pandas as pd
 import pickle
 import torch
 
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 
-GOLD_PARQUET_PATH = '/Users/olievortex/lakehouse/default/Files/gold/igra2/liftedindex_lr'
-ARTIFACTS_PATH = '/Users/olievortex/lakehouse/default/Files/gold/igra2/artifacts'
-D = 127
-K = 1
+PARQUET_PATH = '/usr/datalake/silver/igra/liftedindex_lr/gph20s10k_li.parquet'
+ARTIFACTS_PATH = '/usr/datalake/silver/igra/liftedindex_lr/artifacts'
 
 print(f"Imports        : {(datetime.now()-start).total_seconds()*1000.:.2f}ms")
 start = datetime.now()
 
 def load_dataset():
-    df = pd.read_parquet(GOLD_PARQUET_PATH)
+    df = pd.read_parquet(PARQUET_PATH)
 
     # Separate the datasets
     X = df.drop(['id', 'effective_date', 'hour', 'li'], axis=1)
@@ -36,16 +34,31 @@ def load_dataset():
    
     return X, Y
 
-def load_standard_scaler()-> StandardScaler:
+def load_standard_scaler()-> MinMaxScaler:
     with open(f'{ARTIFACTS_PATH}/li_std_scaler.skl', 'rb') as f:
         std_scaler = pickle.load(f)
 
     return std_scaler
 
-model = torch.nn.Sequential()
-model.add_module("dense1", torch.nn.Linear(D, 7))
-model.add_module("tanh1", torch.nn.Tanh())
-model.add_module("dense2", torch.nn.Linear(7, K))
+class LiModel(torch.nn.Module):
+    def __init__(self):
+        super().__init__()
+        
+        self.linear_relu_stack = torch.nn.Sequential(
+            torch.nn.Linear(127, 100),
+            torch.nn.ReLU(),
+            torch.nn.Linear(100, 50),
+            torch.nn.ReLU(),
+            torch.nn.Linear(50, 10),
+            torch.nn.ReLU(),
+            torch.nn.Linear(10, 1)
+        )
+
+    def forward(self, x):
+        logits = self.linear_relu_stack(x)
+
+        return logits
+model = LiModel()
 model.load_state_dict(torch.load(f'{ARTIFACTS_PATH}/li_fnn.pt'))
 model.eval()
 
