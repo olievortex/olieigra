@@ -17,6 +17,7 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
+    "imblearn>=0.0",
     "jupyter>=1.1.1",
     "maidenhead>=1.8.0",
     "matplotlib>=3.7.5",
